@@ -1,0 +1,155 @@
+<?php include 'session_init.php'; ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/base.css">
+    
+    <title>Car Showroom</title>
+</head>
+<body>
+    <div class="app">
+        <header class="header bg-main py-2">        
+            <div class="header_top container-fluid position-relative d-flex align-items-center justify-content-around">
+
+                <h4 id="header_brand-slogan" class="text-decoration-none m-0 text-dark fw-bold fs-2">
+                    MEGASIX SHOWROOM
+                </h4>
+                
+                <form action="base.php" method="GET" class="search_box position-relative d-flex">
+                    <input type="hidden" name="page" value="home">
+                    <input type="search" 
+                           id="search" 
+                           class="form-control h-100 w-100 px-4 rounded-3 border-0" 
+                           name="keyword" 
+                           placeholder="Search..." 
+                           value="<?php echo isset($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : ''; ?>">
+                    
+                    <button type="submit" class="btn border-0 p-0 bg-transparent position-absolute top-50 end-0 translate-middle-y me-3">
+                        <i class="bx bx-search-alt custom_hover fs-4"></i>
+                    </button>
+                </form>                                         
+                <ul class="user_menu list-unstyled d-flex m-0 gap-3">
+                    <li class="user_menu-notice menu-item position-relative">                    
+                        <a href="#" class="dropdown_btn" data-target="#bellDropdown">
+                            <i class="bx bx-bell fs-2 custom_hover"></i>
+                        </a>
+                    </li>
+
+                    <li class="user_menu-cart">
+                        <?php if (isset($_SESSION['customer_id'])): ?>
+                            <a href="?page=cart"><i class="bx bx-cart fs-2 custom_hover"></i></a>
+                        <?php else: ?>
+                            <a href="login.php"><i class="bx bx-cart fs-2 custom_hover"></i></a>
+                        <?php endif; ?>
+                    </li>
+
+                    <li class="user_menu-log menu-item position-relative">
+                        <a href="" class="dropdown_btn" data-target="#userDropdown">
+                            <i class="bx bx-user-circle fs-2 custom_hover"></i>
+                        </a>                    
+                    </li>                  
+                </ul>
+
+                <div class="user-dropdown position-absolute rounded-2 p-3 shadow-lg" id="mainDropdown">
+                    <div class="dropdown-content" id="bellDropdown">
+                        <h3 class="pt-2 pb-4 text-nowrap fw-bold">Notifications</h3>
+                        <ul class="list-unstyled">
+                            <li class="py-2 text-nowrap text-decoration-none">No new notifications</li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown-content" id="userDropdown">
+                        <?php if (isset($_SESSION['customer_id'])): ?>
+                            <h3 class="pt-2 pb-4 text-nowrap fw-bold">Hello, <?= htmlspecialchars($_SESSION['username']) ?></h3>
+                            <ul class="list-unstyled">
+                                <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
+                                    <li class="py-2"><a href="./admin/index.php" class="text-nowrap text-decoration-none custom_hover">Admin Dashboard</a></li>
+                                <?php endif; ?>
+                                
+                                <li class="py-2"><a href="?page=profile" class="text-nowrap text-decoration-none custom_hover">My Profile</a></li>
+                                
+                                <li class="py-2"><a href="?page=order" class="text-nowrap text-decoration-none custom_hover">My Bookings</a></li>
+                                <li class="py-2"><a href="logout.php" class="text-nowrap text-decoration-none custom_hover">Logout</a></li>
+                            </ul>
+                        <?php else: ?>
+                            <ul class="list-unstyled">
+                                <li class="py-2"><a href="login.php" class="text-nowrap text-decoration-none custom_hover">Login</a></li>
+                                <li class="py-2"><a href="registration.php" class="text-nowrap text-decoration-none custom_hover">Register</a></li>
+                            </ul>
+                        <?php endif; ?>
+                    </div>        
+                </div>              
+            </div>          
+        </header>
+
+        <div id="myNavbar" class="navbar w-100 p-0 sticky-top d-flex align-items-center" >
+            <ul class="navbar__list list-unstyled align-items-center justify-content-center d-flex gap-5 m-0 py-2 w-100">
+                <li class="navbar__item">
+                    <a href="?page=home" class="custom_hover fw-bold text-uppercase text-decoration-none text-nowrap">Home</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="?page=about" class="custom_hover fw-bold text-uppercase text-decoration-none text-nowrap">About Us</a>
+                </li>
+            </ul>
+        </div>
+            
+        <main>
+            <?php
+                // Get current page from URL, default to 'home'
+                $page = isset($_GET['page']) ? $_GET['page'] : 'home';
+          
+                if ($page == 'home') {
+                  include("./home.php");
+                } elseif ($page == 'cart') {
+                  include("./cart.php");
+                } elseif ($page == 'checkout') {
+                  include("./check_out.php"); 
+                } elseif ($page == 'order') {
+                    include("./order.php");
+                } elseif ($page == 'order_detail') {
+                    include("./order_detail.php"); 
+                } elseif ($page == 'profile') {
+                    include("./profile.php");
+                    
+                } elseif ($page == 'about') {
+                    include("./about.php");
+                } elseif ($page == 'information') {
+                    include("./information.php");
+                } else {
+                    echo "<div class='container mt-5 text-center'><h2>404 - Page not found</h2></div>";
+                }
+            ?>
+        </main>
+
+        <footer class="footer">
+        <div class="container text-center"> 
+        <h3 class="contact-header mb-3" style="font-weight: bold; letter-spacing: 2px; color: #000;">
+            CAR WORLD
+        </h3>
+        <ul class="contact-socials list-unstyled d-flex justify-content-center gap-3 mb-3">
+            <li><a href="#"><i class='bx bxl-facebook-circle fs-2 custom_hover'></i></a></li>
+            <li><a href="#"><i class='bx bxl-instagram-alt fs-2 custom_hover'></i></a></li>
+            <li><a href="https://youtu.be/sdEv8PiW7dE"><i class='bx bxl-youtube fs-2 custom_hover'></i></a></li>
+            <li><a href="#"><i class='bx bxl-twitter fs-2 custom_hover'></i></a></li>
+        </ul> 
+        <p class="mb-0 fs-6 text-dark lh-base"> 
+                Email: contact@carworld.vn | Hotline: 0379.583.624
+                <br> Location: No 1 Trinh Van Bo, Nam Tu Liem, Ha Noi
+        </p>
+    </div>
+</footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="./assets/js/main.js"></script>
+</body>
+</html>

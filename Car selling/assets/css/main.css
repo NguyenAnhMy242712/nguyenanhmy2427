@@ -1,0 +1,83 @@
+.header_top{
+  height:60px;
+}
+
+.search_box {
+  width: 40vw;
+  height: 40px;
+}
+
+.search_box input {
+  font-size: 16px;
+  outline: 0;
+  background-color: var(--second-bg-color);
+}
+
+.search_box i {
+  right: 20px;
+  cursor: pointer;
+  font-size: 25px;
+}
+
+/* Nabar */
+.navbar {
+  background-color: var(--third-bg-color);
+  height: 60px;
+}
+
+.navbar li a {
+  color: var(--black);
+}
+
+/* Footer */
+.footer{
+  background-color: #aeaeae; 
+}
+
+.contact-header {
+  font-weight: 600;
+  margin-bottom: 30px;
+  font-size: 38px;
+}
+
+/* Silder */
+.info-content {
+  bottom: 20px;
+}
+
+.slide-control:hover {
+  background: rgba(109, 109, 101, 0.7);
+}
+
+/* Modal */
+.user-dropdown {
+  display: none;
+  top: 100%;
+  right: 0;
+  z-index: 1030;
+  background-color: var(--third-bg-color);
+  width: 20%;
+}
+
+.user-dropdown.show {
+  display: block;
+}
+
+.dropdown-content {
+  display: none;
+}
+
+.dropdown-content.show {
+  display: block;
+}
+
+.dropdown-content li a {
+  color: var(--black);
+}
+
+/* Cart */
+.cart {
+  min-height: 60vh;
+}
+
+

@@ -1,0 +1,150 @@
+/* ===============================
+   LAYOUT TỔNG QUAN DASHBOARD
+================================= */
+.container {
+    margin-left: 300px; 
+    padding: 25px;
+    width: calc(100% - 320px); /* thay max-width → width */
+    max-width: 100%; 
+}
+
+
+@media (max-width: 992px) {
+    .content-area {
+        margin-left: 0;
+        width: 100%;
+        padding: 15px;
+    }
+}
+
+/* ===============================
+   CARD LAYOUT – XẾP CẠNH NHAU
+================================= */
+
+.row.g-4 {
+    margin-left: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* khoảng cách giữa các card */
+}
+
+.row.g-4 .col-xl-3,
+.row.g-4 .col-sm-6 {
+    flex: 1 1 240px;  /* mỗi card rộng tối thiểu 240px */
+    max-width: 260px; /* không quá rộng */
+}
+
+
+/* ===============================
+   CARD DASHBOARD
+================================= */
+
+.card {
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: 0.25s;
+    border: none;
+    max-width: 260px; /* card width */
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+
+/* ===============================
+   HEADER CARD – icon + text
+================================= */
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    background: #85b4e8;
+    color: #fff;
+}
+
+.card-header .icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+}
+
+.card-header p {
+    margin: 0;
+    font-size: 15px;
+    color: #f2f2f2;
+}
+
+.card-header h4 {
+    margin: 4px 0 0 0;
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+}
+
+
+/* ===============================
+   FOOTER CARD – % tăng giảm
+================================= */
+
+.card-footer {
+    background: #f7f9fa;
+    padding: 15px 20px;
+}
+
+.card-footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.card-footer .text-success {
+    color: #4caf50 !important;
+}
+
+.card-footer .text-danger {
+    color: #e53935 !important;
+}
+
+
+/* ===============================
+   ICON (material-icons)
+================================= */
+
+.material-icons {
+    font-size: 30px !important;
+    color: #fff;
+}
+
+
+/* ===============================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 768px) {
+    .card-header {
+        flex-direction: row;
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .card-header h4 {
+        font-size: 22px;
+    }
+
+    .material-icons {
+        font-size: 26px !important;
+    }
+}
